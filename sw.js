@@ -1,4 +1,4 @@
-let swVer = 3;
+let swVer = 4;
 
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
