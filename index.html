@@ -27,11 +27,57 @@
     <meta name='twitter:title' content='The Drama Button'>
     <meta name='twitter:description' content='The Drama Button for all the dramatic moments of your life!'>
     <meta name='twitter:creator' content='@mohannadize'>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <style type="text/css">
     	* {
     		margin: 0;
     		padding: 0;
     	}
+    	a {
+    		color: inherit;
+    		text-decoration: none;
+    	}
+    	.header {
+    		width: 70%;
+    		text-align: center;
+    		margin: auto;
+    		margin-top: 50px;
+    		cursor: default;
+    	}
+    	.header h1 {
+    		text-align: center;
+    		width: 100%;
+    		font-family: Pacifico, sans-serif;
+    		font-size: 36px;
+    		font-weight: 400;
+    		text-shadow: 0 2px 5px rgba(0,0,0,.1)
+    	}
+    	.footer {
+    		position: fixed;
+    		bottom: 0;
+    		width: 100%;
+    		background-color: #eee;
+    		box-shadow: 0 2px 7px 2px rgba(0,0,0,0.3);
+    	}
+    	.footer ul {
+    		margin-top: 15px;
+    		margin-bottom: 15px;
+    		text-align: center;
+    	}
+    	.footer li {
+    		display: inline-block;
+    		margin-left: 15px;
+    		font-size: 18px;
+    		margin-right: 15px;
+    		font-family: Roboto,sans-serif;
+    		font-weight: 300;
+    		text-shadow: 0 2px 3px rgba(0,0,0,.1);
+    		transition: all 250ms ease;
+    		opacity: 0.8;
+    	}
+    	.footer li:focus, .footer li:active, .footer li:hover {
+    		opacity: 1;
+    	} 
     	.btnInn {
 			transform: scale(1);
     		position: absolute;
@@ -43,7 +89,7 @@
     		box-shadow: 0 0 15px -4px rgba(0,0,0,0.3);
     		background-color: #FFE2E2;
     		z-index: 5;
-    		transition: all 125ms ease;
+    		transition: all 50ms ease;
     	}
     	.pressed {
     		transform: scale(0.95);
@@ -60,10 +106,14 @@
     		background-color: #f00;
     	}
     	@media (max-width: 500px) and (min-width: 0px) {
+    		.header {
+    			width: 90%;
+    		}
     		.btn {
-    			width: 70%;
-    			padding-top: 70%;
-    			left: 15%;
+    			width: 50%;
+    			padding-top: 50%;
+    			left: 25%;
+    			top: 30%;
     		}
     	}
     	@media (min-width: 1000px) {
@@ -76,8 +126,15 @@
     </style>
 </head>
 <body>
+	<div class="header"><h1>The Drama Button</h1></div>
 	<div class="btn" id="drama">
 		<div class="btnInn"></div>
+	</div>
+	<div class="footer">
+		<ul>
+			<a href="about.html"><li>About</li></a>
+			<a target="_blank" href="https://twitter.com/mohannadize"><li>@Mohannadize</li></a>
+		</ul>
 	</div>
 		<script type="text/javascript">
 	(function() {
@@ -139,24 +196,18 @@
 	    var horn = new Horn();
 
 	    var start = function(e) {
-	      e.preventDefault();
-
+    	  if (e.path[0] == airhornImage) {e.preventDefault();} else {return;}
 	      if(e.touches && e.touches.length > 1) {
 	        // Multi touch. OFF.
 	        return false;
 	      }
-
-	      // Play the sound
 	      airhornImage.classList.add('pressed');
 	      horn.start();
 	    };
 
 	    var stop = function(e) {
-	      e.preventDefault();
-	      // Stop the sound
+    	  if (e.path[0] == airhornImage) {e.preventDefault();} else {return;}
 	      airhornImage.classList.remove('pressed');
-
-	      horn.stop();
 	    };
 	    
 	    airhornImage.addEventListener("mousedown", start);
