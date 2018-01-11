@@ -1,4 +1,5 @@
 {
+  "name": "The Drama Button!",
   "short_name": "Drama!",
   "icons": [{
         "src": "images/btn128.png",
@@ -16,6 +17,10 @@
         "src": "images/btn192.png",
         "type": "image/png",
         "sizes": "192x192"
+      }, {
+        "src": "images/btn192.png",
+        "type": "image/png",
+        "sizes": "512x512"
       }],
   "start_url": "./",
   "scope": "./",
