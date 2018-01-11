@@ -1,0 +1,26 @@
+{
+  "name": "The Drama Button!",
+  "short_name": "Drama!",
+  "icons": [{
+        "src": "images/btn128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      }, {
+        "src": "images/btn152.png",
+        "type": "image/png",
+        "sizes": "152x152"
+      }, {
+        "src": "images/btn144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      }, {
+        "src": "images/btn192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5"
+}

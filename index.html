@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Drama Button!</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='description' content='An Air horn. Probably the best air horn web app there is.'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel='canonical' href='#'>
+    <link rel='manifest' href='manifest.json'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='application-name' content='Drama!'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    <meta name='apple-mobile-web-app-title' content='Air Horner'>
+    <link rel='icon' sizes='192x192' href='/images/btn192.png'>
+    <link rel='apple-touch-icon' href='/images/btn192.png'>
+    <meta name='msapplication-TileImage' content='/images/btn144.png'>
+    <meta name='msapplication-TileColor' content='#f5f5f5'>
+    <meta name='theme-color' content='#f5f5f5'>
+    <meta property='og:title' content='The Drama Button'>
+    <meta property='og:type' content='website'>
+    <meta property='og:url' content='#'>
+    <meta property='og:description' content='The Drama Button for all the dramatic moments of your life!!'>
+    <meta name='twitter:card' content='summary'>
+    <meta name='twitter:url' content='#'>
+    <meta name='twitter:title' content='The Drama Button'>
+    <meta name='twitter:description' content='The Drama Button for all the dramatic moments of your life!'>
+    <meta name='twitter:creator' content='@mohannadize'>
+    <style type="text/css">
+    	* {
+    		margin: 0;
+    		padding: 0;
+    	}
+    	.btnInn {
+			transform: scale(1);
+    		position: absolute;
+    		width: 90%;
+    		height:90%;
+    		left: 5%;
+    		top: 5%;
+    		border-radius: 50%;
+    		box-shadow: 0 0 15px -4px rgba(0,0,0,0.3);
+    		background-color: #FFE2E2;
+    		z-index: 5;
+    		transition: all 125ms ease;
+    	}
+    	.pressed {
+    		transform: scale(0.95);
+    	}
+    	.btn {
+    		left:35%;
+    		top: 25%;
+    		width: 30%;
+    		padding-top: 30%;
+    		border-radius: 50%;
+    		box-shadow: 0 0 15px -4px rgba(0,0,0,0.5);
+    		position: absolute;
+    		z-index: 5;
+    		background-color: #f00;
+    	}
+    	@media (max-width: 500px) and (min-width: 0px) {
+    		.btn {
+    			width: 70%;
+    			padding-top: 70%;
+    			left: 15%;
+    		}
+    	}
+    	@media (min-width: 1000px) {
+    		.btn {
+    			width: 20%;
+    			padding-top: 20%;
+    			left:40%;
+    		}
+    	}
+    </style>
+</head>
+<body>
+	<div class="btn" id="drama">
+		<div class="btnInn"></div>
+	</div>
+		<script type="text/javascript">
+	(function() {
+	  'use strict';
+
+	  var Horn = function() {
+	    // The Horn Player.
+
+	    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	    var source;
+	    var buffer;
+
+	    var loadSound = function(bufferObj, callback) {
+	      callback = callback || function() {};
+
+	      var xhr = new XMLHttpRequest();
+
+	      xhr.onload = function() {
+	        audioCtx.decodeAudioData(xhr.response, function(decodedBuffer) {
+	          callback(decodedBuffer);
+	        });
+	      };
+
+	      xhr.open('GET', '/drama.swf.mp3' );
+	      xhr.responseType = 'arraybuffer';
+	      xhr.send();
+	    };
+
+
+	    this.start = function() {
+	      source = audioCtx.createBufferSource();
+
+	      source.connect(audioCtx.destination);
+	        
+	      source.buffer = buffer;
+	      
+	      source.start(0);
+	    };
+
+	    this.stop = function() {
+	      source.loop = false;
+	    };
+
+	    var init = function() {
+
+	      loadSound(buffer, function(decodedBuffer) {
+	        buffer = decodedBuffer;
+	      });
+	    };
+
+	    init();
+
+	  };
+
+	  var AirHorn = function(root) {
+	    // Controls the AirHorn.
+
+	    var airhornImage = root.querySelector("#drama .btnInn");
+	    var horn = new Horn();
+
+	    var start = function(e) {
+	      e.preventDefault();
+
+	      if(e.touches && e.touches.length > 1) {
+	        // Multi touch. OFF.
+	        return false;
+	      }
+
+	      // Play the sound
+	      airhornImage.classList.add('pressed');
+	      horn.start();
+
+	      ga('send', 'event', 'horn', 'play');
+	    };
+
+	    var stop = function(e) {
+	      e.preventDefault();
+	      // Stop the sound
+	      airhornImage.classList.remove('pressed');
+
+	      horn.stop();
+	    };
+	    
+	    airhornImage.addEventListener("mousedown", start);
+	    airhornImage.addEventListener("touchstart", start);
+
+	    document.documentElement.addEventListener("mouseup", stop);
+	    document.documentElement.addEventListener("touchend", stop);
+
+	  };
+
+	  window.addEventListener('load', function() {
+	    var airhornEl = document.getElementById('drama');
+	    var airhorn = new AirHorn(airhornEl);
+	  });
+	})();
+
+	if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+	</script>
+</body>
+</html>
