@@ -101,7 +101,7 @@
 	        });
 	      };
 
-	      xhr.open('GET', '/drama.swf.mp3' );
+	      xhr.open('GET', 'drama.swf.mp3' );
 	      xhr.responseType = 'arraybuffer';
 	      xhr.send();
 	    };
@@ -149,8 +149,6 @@
 	      // Play the sound
 	      airhornImage.classList.add('pressed');
 	      horn.start();
-
-	      ga('send', 'event', 'horn', 'play');
 	    };
 
 	    var stop = function(e) {
@@ -175,7 +173,7 @@
 	  });
 	})();
 
-	if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+	if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 	</script>
 </body>
 </html>
