@@ -1,8 +1,8 @@
-let swVer = 2;
-
+let swVer = 1;
+const allCaches = ["Drama-1.0"];
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
-		caches.open("Drama").then((cache)=>{
+		caches.open(allCaches[0]).then((cache)=>{
 			return cache.addAll(["./","./index.html","./drama.swf.mp3"]).then(()=>self.skipWaiting());
 		})
 	);
@@ -12,11 +12,25 @@ self.addEventListener("fetch",(e)=>{
 	e.respondWith(
 		caches.match(e.request).then((res)=>{
 			return res || fetch(e.request).then((netres)=>{
-				return caches.open("Drama").then((cache)=>{
+				return caches.open(allCaches[0]).then((cache)=>{
 					cache.put(request.url,netres.clone());
 					return netres;
 				});
 			});
 		})
 	);
+});
+self.addEventListener("activate",(e)=>{
+	e.waitUntil(
+	caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          return cacheName.startsWith('Drama') &&
+                 !allCaches.includes(cacheName);
+        }).map(function(cacheName) {
+          return caches.delete(cacheName);
+        })
+      );
+    })
+	)
 })
