@@ -1,8 +1,8 @@
-const allCaches = ["Drama-1.1"];
+const cacheStore = "Drama-1.1";
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
-		caches.open(allCaches[0]).then((cache)=>{
-			return cache.addAll(["./","./index.html","./drama.swf.mp3","./about.html"]).then(()=>self.skipWaiting());
+		caches.open(cacheStore).then((cache)=>{
+			return cache.addAll(["./","./index.html","./drama.swf.mp3","./manifest.json"]).then(()=>self.skipWaiting());
 		})
 	);
 });
@@ -12,7 +12,7 @@ self.addEventListener("fetch",(e)=>{
 		e.respondWith(
 			caches.match(e.request).then((res)=>{
 				return res || fetch(e.request).then((netres)=>{
-					return caches.open(allCaches[0]).then((cache)=>{
+					return caches.open(cacheStore).then((cache)=>{
 						cache.put(request,netres.clone());
 						return netres;
 					});
@@ -26,8 +26,7 @@ self.addEventListener("activate",(e)=>{
 	caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('Drama') &&
-                 !allCaches.includes(cacheName);
+          return cacheName.startsWith('Drama') && cacheStore != cacheName;
         }).map(function(cacheName) {
           return caches.delete(cacheName);
         })
