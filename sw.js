@@ -1,5 +1,5 @@
 let swVer = 1;
-const allCaches = ["Drama-1.2.1"];
+const allCaches = ["Drama-1.0.1"];
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
 		caches.open(allCaches[0]).then((cache)=>{
