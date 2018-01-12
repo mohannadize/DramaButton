@@ -1,4 +1,4 @@
-const cacheStore = "Drama-1.2.3";
+const cacheStore = "Drama-1.2.4";
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
 		caches.open(cacheStore).then((cache)=>{

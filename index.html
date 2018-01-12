@@ -101,7 +101,7 @@
             box-shadow: 0 5px 15px -4px rgba(0,0,0,0.7);
             background-color: #FFE2E2;
             z-index: 5;
-            transition: all 50ms ease;
+            transition: all 75ms ease;
             border:0;
         }
         .pressed {
@@ -282,7 +282,7 @@
 		<ul>
 			<a class="abtBtn" href="javascript:void(0)" onclick="toggleAbout(1)"><li>About</li></a>
 		</ul>
-		<span class="version">1.2.3</span>
+		<span class="version">1.2.4</span>
 	</div>
     <div id="about">
         <a href="javascript:void(0)" onclick="toggleAbout(0,1)" class="abtBtnClose"><i class="fa fa-close"></i></a>
@@ -298,12 +298,14 @@
             <li><a target="_blank" href="https://www.linkedin.com/in/mohannad977/" class="hoverable linkedin"><i class="fa fa-linkedin-square"></i>@Mohannad977</a></li>
         </ul>
     </div>
-	<script type="text/javascript">
-	const dramaaudio = new Audio("drama.swf.mp3");
-	const dramaBtn = document.querySelector(".btnInn");
+    <script type="text/javascript">
+    const dramaaudio = new Audio("drama.swf.mp3");
+    const dramaBtn = document.querySelector(".btnInn");
     let toggleAbt = 0;
     let iOStoggle = 0;
-	function playDramaticSound(e,audiotag,elem,touch = 0) {
+    // Play the Drama!!!
+    function playDramaticSound(e,audiotag,elem) {
+        // Workaround for Safari on iOS
         let ios = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
         if (ios) {
             if (!iOStoggle) {
@@ -315,17 +317,18 @@
                 },dramaaudio.duration*1000 + 200);
             }
         }
-		if(e.touches && e.touches.length > 1) {
-			return false;
-		}
-		elem.classList.add('pressed');
-		if (!touch) {
-			setTimeout(()=>{
-				elem.classList.remove('pressed');
-			},125);
-		}
-		audiotag.play();
-	}
+        // Ignore multitouch
+        if(e.touches && e.touches.length > 1) {
+            return false;
+        }
+        // Toggle Button
+        elem.classList.add('pressed');
+        setTimeout(()=>{
+            elem.classList.remove('pressed');
+        },dramaaudio.duration*1000);
+        audiotag.play();
+    }
+    // Toggle about page and enable back to return
     function toggleAbout(x,cross = 0) {
         const elem = document.getElementById("about");
         if (x) {
@@ -341,11 +344,15 @@
     window.onpopstate = function() {
         if (document.location.hash != "#About") toggleAbout(0);
     }
-	dramaBtn.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+
+    // Listen to touch or click events in all of its types
+	dramaBtn.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
 	dramaBtn.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
-	dramaBtn.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+	dramaBtn.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
 	dramaBtn.addEventListener("touchend", (e)=>{dramaBtn.classList.remove('pressed');});
 	dramaBtn.addEventListener("click", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
+
+    // Register Service Worker
 	if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 	</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112380687-1"></script>
