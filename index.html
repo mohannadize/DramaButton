@@ -282,7 +282,7 @@
 		<ul>
 			<a class="abtBtn" href="javascript:void(0)" onclick="toggleAbout(1)"><li>About</li></a>
 		</ul>
-		<span class="version">1.2.1</span>
+		<span class="version">1.2.2</span>
 	</div>
     <div id="about">
         <a href="javascript:void(0)" onclick="toggleAbout(0,1)" class="abtBtnClose"><i class="fa fa-close"></i></a>
@@ -302,15 +302,20 @@
 	const dramaaudio = new Audio("drama.swf.mp3");
 	const dramaBtn = document.querySelector(".btnInn");
     let toggleAbt = 0;
+    let iOStoggle = 0;
 	function playDramaticSound(e,audiotag,elem,touch = 0) {
         let ios = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
         if (!ios) {
             if (e == elem || (e.target != elem) || (e.path[0] != elem)) return;
         } else {
-            setTimeout(()=>{
-                dramaaudio.src = "";
-                dramaaudio.src = "drama.swf.mp3";
-            },dramaaudio.duration*1000 + 200);
+            if (!iOStoggle) {
+                iOStoggle = 1;
+                setTimeout(()=>{
+                    iOStoggle = 0;
+                    dramaaudio.src = "";
+                    dramaaudio.src = "drama.swf.mp3";
+                },dramaaudio.duration*1000 + 200);
+            }
         }
 		if(e.touches && e.touches.length > 1) {
 			return false;
