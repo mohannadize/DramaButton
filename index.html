@@ -105,6 +105,16 @@
     		z-index: 5;
     		background-color: #f00;
     	}
+    	.footer .version {
+    		font-size: 14px;
+    		font-family: monospace;
+    		transform: scaleY(1.1);
+    		pointer-events: none;
+    		position: absolute;
+    		right: 10px;
+    		bottom: 33%;
+    		color:#999;
+    	}
     	@media (max-width: 500px) and (min-width: 0px) {
     		.header {
     			width: 90%;
@@ -135,6 +145,7 @@
 			<a href="about.html"><li>About</li></a>
 			<a target="_blank" href="https://twitter.com/mohannadize"><li>@Mohannadize</li></a>
 		</ul>
+		<span class="version">1.2.1</span>
 	</div>
 	<script type="text/javascript">
 	const dramaaudio = new Audio("drama.swf.mp3");
