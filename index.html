@@ -4,6 +4,7 @@
 	<title>The Drama Button!</title>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <link rel="shortcut icon" type="image/png" href="images/btn128.png"/>
     <meta name='description' content='An Air horn. Probably the best air horn web app there is.'>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel='canonical' href='https://mohannadize.github.io/DramaButton'>
@@ -281,10 +282,10 @@
 		<ul>
 			<a class="abtBtn" href="javascript:void(0)" onclick="toggleAbout(1)"><li>About</li></a>
 		</ul>
-		<span class="version">1.1.1</span>
+		<span class="version">1.2</span>
 	</div>
     <div id="about">
-        <a href="javascript:void(0)" onclick="toggleAbout(0)" class="abtBtnClose"><i class="fa fa-close"></i></a>
+        <a href="javascript:void(0)" onclick="toggleAbout(0,1)" class="abtBtnClose"><i class="fa fa-close"></i></a>
         <p>
             Inspired by <a href="https://airhorner.com/">The Air Horner</a>. I present you the button to fix all of your problems.<br><br>
             <strong>Very handy in situations where facial reaction isn't just enough.</strong><br><br>
@@ -305,6 +306,11 @@
         let ios = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
         if (!ios) {
             if (e == elem || (e.target != elem) || (e.path[0] != elem)) return;
+        } else {
+            setTimeout(()=>{
+                dramaaudio.src = "";
+                dramaaudio.src = "drama.swf.mp3";
+            },dramaaudio.duration*1000 + 200);
         }
 		if(e.touches && e.touches.length > 1) {
 			return false;
@@ -317,15 +323,20 @@
 		}
 		audiotag.play();
 	}
-    function toggleAbout(x) {
+    function toggleAbout(x,cross = 0) {
         const elem = document.getElementById("about");
         if (x) {
             elem.classList.add("open");
             toggleAbt = 1;
+            history.pushState({home: 1}, "About", "#About");
         } else {
             toggleAbt = 0;
             elem.classList.remove("open");
         }
+        if (cross) history.back();
+    }
+    window.onpopstate = function() {
+        if (document.location.hash != "#About") toggleAbout(0);
     }
 	document.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
 	document.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
