@@ -1,9 +1,9 @@
 let swVer = 1;
-const allCaches = ["Drama-1.0"];
+const allCaches = ["Drama-1.2"];
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
 		caches.open(allCaches[0]).then((cache)=>{
-			return cache.addAll(["./","./index.html","./drama.swf.mp3"]).then(()=>self.skipWaiting());
+			return cache.addAll(["./","./index.html","./drama.swf.mp3","./about.html"]).then(()=>self.skipWaiting());
 		})
 	);
 });

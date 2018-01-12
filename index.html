@@ -10,9 +10,9 @@
     <link rel='manifest' href='manifest.json'>
     <meta name='mobile-web-app-capable' content='yes'>
     <meta name='apple-mobile-web-app-capable' content='yes'>
-    <meta name='application-name' content='Drama!'>
+    <meta name='application-name' content='The Drama Button'>
     <meta name='apple-mobile-web-app-status-bar-style' content='black'>
-    <meta name='apple-mobile-web-app-title' content='Air Horner'>
+    <meta name='apple-mobile-web-app-title' content='The Drama Button'>
     <link rel='icon' sizes='192x192' href='/images/btn192.png'>
     <link rel='apple-touch-icon' href='/images/btn192.png'>
     <meta name='msapplication-TileImage' content='/images/btn144.png'>
@@ -136,94 +136,27 @@
 			<a target="_blank" href="https://twitter.com/mohannadize"><li>@Mohannadize</li></a>
 		</ul>
 	</div>
-		<script type="text/javascript">
-	(function() {
-	  'use strict';
-
-	  var Horn = function() {
-	    // The Horn Player.
-
-	    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-	    var source;
-	    var buffer;
-
-	    var loadSound = function(bufferObj, callback) {
-	      callback = callback || function() {};
-
-	      var xhr = new XMLHttpRequest();
-
-	      xhr.onload = function() {
-	        audioCtx.decodeAudioData(xhr.response, function(decodedBuffer) {
-	          callback(decodedBuffer);
-	        });
-	      };
-
-	      xhr.open('GET', 'drama.swf.mp3' );
-	      xhr.responseType = 'arraybuffer';
-	      xhr.send();
-	    };
-
-
-	    this.start = function() {
-	      source = audioCtx.createBufferSource();
-
-	      source.connect(audioCtx.destination);
-	        
-	      source.buffer = buffer;
-	      
-	      source.start(0);
-	    };
-
-	    this.stop = function() {
-	      source.loop = false;
-	    };
-
-	    var init = function() {
-
-	      loadSound(buffer, function(decodedBuffer) {
-	        buffer = decodedBuffer;
-	      });
-	    };
-
-	    init();
-
-	  };
-
-	  var AirHorn = function(root) {
-	    // Controls the AirHorn.
-
-	    var airhornImage = root.querySelector("#drama .btnInn");
-	    var horn = new Horn();
-
-	    var start = function(e) {
-    	  if (e.path[0] == airhornImage) {e.preventDefault();} else {return;}
-	      if(e.touches && e.touches.length > 1) {
-	        // Multi touch. OFF.
-	        return false;
-	      }
-	      airhornImage.classList.add('pressed');
-	      horn.start();
-	    };
-
-	    var stop = function(e) {
-    	  if (e.path[0] == airhornImage) {e.preventDefault();} else {return;}
-	      airhornImage.classList.remove('pressed');
-	    };
-	    
-	    airhornImage.addEventListener("mousedown", start);
-	    airhornImage.addEventListener("touchstart", start);
-
-	    document.documentElement.addEventListener("mouseup", stop);
-	    document.documentElement.addEventListener("touchend", stop);
-
-	  };
-
-	  window.addEventListener('load', function() {
-	    var airhornEl = document.getElementById('drama');
-	    var airhorn = new AirHorn(airhornEl);
-	  });
-	})();
-
+	<script type="text/javascript">
+	const dramaaudio = new Audio("drama.swf.mp3");
+	const dramaBtn = document.querySelector("#drama .btnInn");
+	function playDramaticSound(e,audiotag,elem,touch = 0) {
+	if (e.path[0] == elem) {e.preventDefault();} else {return;}
+		if(e.touches && e.touches.length > 1) {
+			return false;
+		}
+		elem.classList.add('pressed');
+		if (!touch) {
+			setTimeout(()=>{
+				elem.classList.remove('pressed');
+			},125);
+		}
+		audiotag.play();
+	}
+	document.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+	document.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
+	document.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+	document.addEventListener("touchend", (e)=>{dramaBtn.classList.remove('pressed');});
+	document.addEventListener("click", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
 	if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 	</script>
 </body>
