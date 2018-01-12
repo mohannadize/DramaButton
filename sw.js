@@ -19,6 +19,8 @@ self.addEventListener("fetch",(e)=>{
 				});
 			})
 		);
+	}else{
+		respondWith(fetch(e.request));
 	}
 });
 self.addEventListener("activate",(e)=>{
