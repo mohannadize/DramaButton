@@ -138,20 +138,23 @@
 <body>
 	<div class="header"><h1>The Drama Button</h1></div>
 	<div class="btn" id="drama">
-		<div class="btnInn"></div>
+		<a class="btnInn" href="javascript:void(0)" onclick="playDramaticSound(this,dramaaudio,dramaBtn)"></a>
 	</div>
 	<div class="footer">
 		<ul>
 			<a href="about.html"><li>About</li></a>
 			<a target="_blank" href="https://twitter.com/mohannadize"><li>@Mohannadize</li></a>
 		</ul>
-		<span class="version">1.0.1</span>
+		<span class="version">1.0.2</span>
 	</div>
 	<script type="text/javascript">
 	const dramaaudio = new Audio("drama.swf.mp3");
 	const dramaBtn = document.querySelector("#drama .btnInn");
 	function playDramaticSound(e,audiotag,elem,touch = 0) {
-	if (e.path[0] == elem) {e.preventDefault();} else {return;}
+        let ios = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+        if (!ios) {
+            if (e == elem || (e.target != elem) || (e.path[0] != elem)) {return;}
+        }
 		if(e.touches && e.touches.length > 1) {
 			return false;
 		}
