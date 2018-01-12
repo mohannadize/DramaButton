@@ -16,8 +16,8 @@
     <link rel='icon' sizes='192x192' href='/images/btn192.png'>
     <link rel='apple-touch-icon' href='/images/btn192.png'>
     <meta name='msapplication-TileImage' content='/images/btn144.png'>
-    <meta name='msapplication-TileColor' content='#f5f5f5'>
-    <meta name='theme-color' content='#f5f5f5'>
+    <meta name='msapplication-TileColor' content='#222222'>
+    <meta name='theme-color' content='#ea0000'>
     <meta property='og:title' content='The Drama Button'>
     <meta property='og:type' content='website'>
     <meta property='og:url' content='https://mohannadize.github.io/DramaButton'>
@@ -28,11 +28,19 @@
     <meta name='twitter:description' content='The Drama Button for all the dramatic moments of your life!'>
     <meta name='twitter:creator' content='@mohannadize'>
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <script src="https://use.fontawesome.com/f41d0afd05.js"></script>
     <style type="text/css">
     	* {
     		margin: 0;
     		padding: 0;
     	}
+        body {
+            background-color: #222;
+            overflow: hidden;
+        }
+        button:focus,a:focus {
+            outline:0;
+        }
     	a {
     		color: inherit;
     		text-decoration: none;
@@ -43,28 +51,31 @@
     		margin: auto;
     		margin-top: 50px;
     		cursor: default;
+            color: #eee;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            position: relative;
     	}
-    	.header h1 {
-    		text-align: center;
-    		width: 100%;
-    		font-family: Pacifico, sans-serif;
-    		font-size: 36px;
-    		font-weight: 400;
-    		text-shadow: 0 2px 5px rgba(0,0,0,.1)
-    	}
+    	.header > h1 {
+            text-align: center;
+            font-family: Pacifico, sans-serif;
+            font-size: 36px;
+            font-weight: 400;
+            text-shadow: 0 2px 7px rgba(0,0,0,.7);
+        }
     	.footer {
     		position: fixed;
     		bottom: 0;
     		width: 100%;
-    		background-color: #eee;
+    		background-color: #111;
     		box-shadow: 0 2px 7px 2px rgba(0,0,0,0.3);
     	}
     	.footer ul {
     		margin-top: 15px;
     		margin-bottom: 15px;
-    		text-align: center;
+    		text-align: left;
     	}
     	.footer li {
+            color: white;
     		display: inline-block;
     		margin-left: 15px;
     		font-size: 18px;
@@ -86,13 +97,15 @@
     		left: 5%;
     		top: 5%;
     		border-radius: 50%;
-    		box-shadow: 0 0 15px -4px rgba(0,0,0,0.3);
-    		background-color: #FFE2E2;
-    		z-index: 5;
-    		transition: all 50ms ease;
-    	}
-    	.pressed {
-    		transform: scale(0.95);
+            box-shadow: 0 5px 15px -4px rgba(0,0,0,0.7);
+            background-color: #FFE2E2;
+            z-index: 5;
+            transition: all 50ms ease;
+            border:0;
+        }
+        .pressed {
+            transform: scale(0.97);
+    		box-shadow: 0 2px 15px -4px rgba(0,0,0,0.7);
     	}
     	.btn {
     		left:35%;
@@ -100,9 +113,9 @@
     		width: 30%;
     		padding-top: 30%;
     		border-radius: 50%;
-    		box-shadow: 0 0 15px -4px rgba(0,0,0,0.5);
+    		box-shadow: 0 8px 15px -4px rgba(0,0,0,0.9);
     		position: absolute;
-    		z-index: 5;
+    		z-index: 0;
     		background-color: #f00;
     	}
     	.footer .version {
@@ -115,6 +128,104 @@
     		bottom: 33%;
     		color:#999;
     	}
+        #about {
+            z-index: 3;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding-top: 12.5%;
+            padding-bottom: 12.5%;
+            text-align: left;
+            display: block;
+            height: 100%;
+            width: 100vw;
+            background-color: #111;
+            box-shadow: 0 5px 15px -3px rgba(0,0,0,0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 250ms ease;
+        }
+        #about.open {
+            opacity: 1;
+            pointer-events: initial;
+        }
+        #about > p {
+            padding-right: 5%;
+            padding-left: 5%;
+            color: white;
+            display: block;
+            font-size: 18px;
+            font-family: Roboto, sans-serif;
+        }
+        #about > p > a {
+            color: #1ba0f9;
+            text-decoration: none;
+        }
+        #about > .abtBtnClose {
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            font-size: 36px;
+            color: white;
+        }
+        a.hoverable {
+            opacity: 0.8;
+            transition: all 250ms ease;
+            box-shadow: 0 2px 4px -2px rgba(0,0,0,.3);
+        }
+        a.hoverable:hover {
+            opacity: 1;
+            box-shadow: 0 4px 6px -2px rgba(0,0,0,.3);
+        }
+        .socialLinks {
+            margin: auto;
+            margin-top: 75px;
+            list-style: none;
+            text-align: center;
+        }
+        .socialLinks li {
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 35px;
+            font-family: Roboto,sans-serif;
+        }
+        li * {
+            vertical-align: middle;
+        }
+        .socialLinks li i {
+            padding-right: 10px;
+            font-size: 24px;
+        }
+        .socialLinks a {
+            border-radius: 15px;
+            color: black;
+            text-decoration: none;
+            padding: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+        .twitter {
+            background-color: #55acee;
+            color: white !important;
+        }
+        .linkedin {
+            background-color: #007bb5;
+            color: white !important;
+        }
+        .git {
+            background-image: linear-gradient(#fafafa,#eee);
+        }
+        .donate {
+            display: block !important;
+        }
+        .donate .hoverable {
+            background-image: linear-gradient(45deg,#D4145A,#FBB03B);
+            color:white;
+        }
     	@media (max-width: 500px) and (min-width: 0px) {
     		.header {
     			width: 90%;
@@ -125,8 +236,34 @@
     			left: 25%;
     			top: 30%;
     		}
+            #spotlight {
+                width: 70%;
+                left: 15%;
+            }
+            #about {
+                padding-top: 100px;
+                overflow-y: scroll;
+            }
+            #about > p {
+            }
+            #about > .abtBtnClose {
+                right: 25px;
+                top: 25px;
+            }
     	}
-    	@media (min-width: 1000px) {
+        @media (min-width: 500px) and (max-width: 800px) {
+            #about {
+                padding-top: 100px;
+                overflow-y: scroll;
+            }
+            #about > p {
+            }
+            #about > .abtBtnClose {
+                right: 25px;
+                top: 25px;
+            }
+        }
+    	@media (min-width: 800px) {
     		.btn {
     			width: 20%;
     			padding-top: 20%;
@@ -138,22 +275,36 @@
 <body>
 	<div class="header"><h1>The Drama Button</h1></div>
 	<div class="btn" id="drama">
-		<a class="btnInn" href="javascript:void(0)" onclick="playDramaticSound(this,dramaaudio,dramaBtn)"></a>
+		<button class="btnInn" href="javascript:void(0)" onclick="playDramaticSound(this,dramaaudio,dramaBtn)"></button>
 	</div>
 	<div class="footer">
 		<ul>
-			<a href="about.html"><li>About</li></a>
-			<a target="_blank" href="https://twitter.com/mohannadize"><li>@Mohannadize</li></a>
+			<a class="abtBtn" href="javascript:void(0)" onclick="toggleAbout(1)"><li>About</li></a>
 		</ul>
-		<span class="version">1.0.2</span>
+		<span class="version">1.1</span>
 	</div>
+    <div id="about">
+        <a href="javascript:void(0)" onclick="toggleAbout(0)" class="abtBtnClose"><i class="fa fa-close"></i></a>
+        <p>
+            Inspired by <a href="https://airhorner.com/">The Air Horner</a>. I present you the button to fix all of your problems.<br><br>
+            <strong>Very handy in situations where facial reaction isn't just enough.</strong><br><br>
+            Credits Goes to <strong>Paul Kinlan</strong> for his JS code :)
+        </p>
+        <ul class="socialLinks">
+            <li class="donate"><a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mohannadize15@gmail.com&currency_code=USD&item_name=Virlo%20-%20Donate" class="hoverable">Donate to help keep this app alive</a></li>
+            <li><a target="_blank" href="https://twitter.com/mohannadize/" class="hoverable twitter"><i class="fa fa-twitter"></i>@Mohannadize</a></li>
+            <li><a target="_blank" href="https://github.com/mohannadize/" class="hoverable git"><i class="fa fa-github"></i>@Mohannadize</a></li>
+            <li><a target="_blank" href="https://www.linkedin.com/in/mohannad977/" class="hoverable linkedin"><i class="fa fa-linkedin-square"></i>@Mohannad977</a></li>
+        </ul>
+    </div>
 	<script type="text/javascript">
 	const dramaaudio = new Audio("drama.swf.mp3");
-	const dramaBtn = document.querySelector("#drama .btnInn");
+	const dramaBtn = document.querySelector(".btnInn");
+    let toggleAbt = 0;
 	function playDramaticSound(e,audiotag,elem,touch = 0) {
         let ios = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
         if (!ios) {
-            if (e == elem || (e.target != elem) || (e.path[0] != elem)) {return;}
+            if (e == elem || (e.target != elem) || (e.path[0] != elem)) return;
         }
 		if(e.touches && e.touches.length > 1) {
 			return false;
@@ -166,12 +317,38 @@
 		}
 		audiotag.play();
 	}
+    function toggleAbout(x) {
+        const elem = document.getElementById("about");
+        if (x) {
+            elem.classList.add("open");
+            toggleAbt = 1;
+        } else {
+            toggleAbt = 0;
+            elem.classList.remove("open");
+        }
+    }
 	document.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
 	document.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
 	document.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
 	document.addEventListener("touchend", (e)=>{dramaBtn.classList.remove('pressed');});
 	document.addEventListener("click", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
+    document.addEventListener("backbutton",(e)=>{
+        if (toggleAbt) {
+            e.preventDefault();
+            toggleAbout(0);
+        }
+    },false);
 	if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 	</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112380687-1"></script>
+    
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-112380687-1');
+    </script>
+   
 </body>
 </html>
