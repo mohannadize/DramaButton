@@ -282,7 +282,7 @@
 		<ul>
 			<a class="abtBtn" href="javascript:void(0)" onclick="toggleAbout(1)"><li>About</li></a>
 		</ul>
-		<span class="version">1.2</span>
+		<span class="version">1.2.1</span>
 	</div>
     <div id="about">
         <a href="javascript:void(0)" onclick="toggleAbout(0,1)" class="abtBtnClose"><i class="fa fa-close"></i></a>
@@ -338,17 +338,11 @@
     window.onpopstate = function() {
         if (document.location.hash != "#About") toggleAbout(0);
     }
-	document.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
-	document.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
-	document.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
-	document.addEventListener("touchend", (e)=>{dramaBtn.classList.remove('pressed');});
-	document.addEventListener("click", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
-    document.addEventListener("backbutton",(e)=>{
-        if (toggleAbt) {
-            e.preventDefault();
-            toggleAbout(0);
-        }
-    },false);
+	dramaBtn.addEventListener("mousedown", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+	dramaBtn.addEventListener("mouseup", (e)=>{dramaBtn.classList.remove('pressed');});
+	dramaBtn.addEventListener("touchstart", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn,1);});
+	dramaBtn.addEventListener("touchend", (e)=>{dramaBtn.classList.remove('pressed');});
+	dramaBtn.addEventListener("click", (e)=>{playDramaticSound(e,dramaaudio,dramaBtn);});
 	if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 	</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112380687-1"></script>
