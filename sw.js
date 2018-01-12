@@ -13,7 +13,7 @@ self.addEventListener("fetch",(e)=>{
 		caches.match(e.request).then((res)=>{
 			return res || fetch(e.request).then((netres)=>{
 				return caches.open(allCaches[0]).then((cache)=>{
-					cache.put(request.url,netres.clone());
+					cache.put(request,netres.clone());
 					return netres;
 				});
 			});
