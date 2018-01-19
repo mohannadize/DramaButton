@@ -22,10 +22,11 @@
         "type": "image/png",
         "sizes": "512x512"
       }],
-  "start_url": "./",
+  "start_url": ".",
   "scope": "./",
   "display": "standalone",
   "background_color": "#222222",
   "theme_color": "#ea0000",
-  "description": "The Drama Button for all the dramatic moments of your life!!"
+  "description": "The Drama Button for all the dramatic moments of your life!!",
+  "orientation":"portrait"
 }

@@ -1,26 +1,36 @@
-const cacheStore = "Drama-1.2.4";
+const cacheStore = "Drama-1.3";
 self.addEventListener("install",(e)=>{
 	e.waitUntil(
 		caches.open(cacheStore).then((cache)=>{
-			return cache.addAll(["./","./index.html","./drama.swf.mp3","./manifest.json"]).then(()=>self.skipWaiting());
+			return cache.addAll([
+				"./",
+				"./index.html",
+				"./drama.swf.mp3",
+				"./manifest.json",
+				"https://fonts.gstatic.com/s/pacifico/v12/Q_Z9mv4hySLTMoMjnk_rCfesZW2xOQ-xsNqO47m55DA.woff2",
+				"https://fonts.googleapis.com/css?family=Pacifico"
+				]).then(()=>self.skipWaiting());
 		})
 	);
 });
 self.addEventListener("fetch",(e)=>{
-	let request = e.request.url;
-	if (!request.startsWith("https://www.google-analytics.com") || !request.startsWith("https://www.googletagmanager.com")) {
+	if (e.request.url.startsWith("https://use.fontawesome.com")){
 		e.respondWith(
 			caches.match(e.request).then((res)=>{
 				return res || fetch(e.request).then((netres)=>{
-					return caches.open(cacheStore).then((cache)=>{
-						cache.put(request,netres.clone());
+					return caches.open(cacheStore).then((x)=>{
+						x.put(e.request.url,netres.clone());
 						return netres;
 					});
 				});
 			})
 		);
-	}else{
-		respondWith(fetch(e.request));
+	} else {	
+		e.respondWith(
+			caches.match(e.request).then((res)=>{
+				return res || fetch(e.request);
+			})
+		);
 	}
 });
 self.addEventListener("activate",(e)=>{
